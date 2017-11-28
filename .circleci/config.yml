@@ -14,6 +14,8 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/mysql:5.7
 
+      - image: circleci/node:8.9.0-browsers
+
     environment:
       - APP_KEY: "base64:goQzQsFS/ayFxrSET6o9O/mNL1bblRt3BpMjOPHcQ68="
 
@@ -38,4 +40,25 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
 
       # run tests!
-      - run: ./vendor/bin/phpunit
+      # - run: ./vendor/bin/phpunit
+
+      # - run: sudo apt-get install -y libsqlite3-dev
+      - run: cp .env.testing .env
+      # - run: composer install -n --ignore-platform-reqs
+      - run: yarn install
+      - run: yarn run production
+      - run: vendor/bin/phpunit
+
+      - run:
+         name: Start Chrome Driver
+         command: ./vendor/laravel/dusk/bin/chromedriver-linux
+         background: true
+
+      - run:
+         name: Run Laravel Server
+         command: php artisan serve
+         background: true
+
+      - run:
+         name: Run Laravel Dusk Tests
+         command: php artisan dusk
