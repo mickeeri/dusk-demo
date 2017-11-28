@@ -13,9 +13,6 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/mysql:5.7
 
-    environment:
-      - APP_KEY: "base64:goQzQsFS/ayFxrSET6o9O/mNL1bblRt3BpMjOPHcQ68="
-
     working_directory: ~/repo
 
     steps:
