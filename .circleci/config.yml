@@ -33,9 +33,9 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-     - run: php artisan key:generate
-     - run: php artisan config:clear
-     - run: php artisan config:cache
+      - run: php artisan key:generate
+      - run: php artisan config:clear
+      - run: php artisan config:cache
 
       # run tests!
       - run: ./vendor/bin/phpunit
