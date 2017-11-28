@@ -29,6 +29,8 @@ jobs:
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "composer.json" }}
+          - v1-dependencies-{{ checksum "package.json" }}
+
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
@@ -37,7 +39,11 @@ jobs:
       - save_cache:
           paths:
             - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
+            - node_modules
+          keys:
+          - v1-dependencies-{{ checksum "composer.json" }}
+          - v1-dependencies-{{ checksum "package.json" }}
+
 
       # run tests!
       # - run: ./vendor/bin/phpunit
