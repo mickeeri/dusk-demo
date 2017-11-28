@@ -39,11 +39,12 @@ jobs:
       - save_cache:
           paths:
             - ./vendor
-            - node_modules
-          keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          - v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "composer.json" }}
 
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
       # - run: ./vendor/bin/phpunit
