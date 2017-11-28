@@ -31,7 +31,7 @@ jobs:
 
       - run:
          name: Install Yarn
-         command: npm install --global yarn
+         command: sudo npm install --global yarn
 
       # Download and cache dependencies
       - restore_cache:
