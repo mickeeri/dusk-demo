@@ -25,6 +25,10 @@ jobs:
          name: Download NodeJS v8
          command: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
+      - run:
+         name: Install NodeJS
+         command: sudo apt-get install nodejs
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -48,10 +52,6 @@ jobs:
       - run:
           name: Install NodeJS Packages
           command: npm install
-
-      - run:
-         name: Install nodejs
-         command: sudo apt-get install nodejs
 
       - save_cache:
           paths:
