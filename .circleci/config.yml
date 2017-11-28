@@ -30,12 +30,8 @@ jobs:
          command: sudo apt-get install nodejs
 
       - run:
-          name: Download Yarn
-          command: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
-      - run:
-          name: Install yarn
-          command: sudo apt-get install yarn
+         name: Install Yarn
+         command: npm install --global yarn
 
       # Download and cache dependencies
       - restore_cache:
