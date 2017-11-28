@@ -49,6 +49,10 @@ jobs:
           name: Install NodeJS Packages
           command: npm install
 
+      - run:
+         name: Install nodejs
+         command: sudo apt-get install nodejs
+
       - save_cache:
           paths:
             - node_modules
