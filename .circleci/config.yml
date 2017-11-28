@@ -55,7 +55,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: Install NodeJS Packages
-          command: npm install
+          command: yarn install
 
       - save_cache:
           paths:
