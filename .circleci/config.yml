@@ -29,6 +29,14 @@ jobs:
          name: Install NodeJS
          command: sudo apt-get install nodejs
 
+      - run:
+          name: Download Yarn
+          command: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+      - run:
+          name: Install yarn
+          command: sudo apt-get update && sudo apt-get install yarn
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -64,19 +72,21 @@ jobs:
       # - run: sudo apt-get install -y libsqlite3-dev
       - run: cp .env.testing .env
       # - run: composer install -n --ignore-platform-reqs
-      - run: npm run prod
-      - run: vendor/bin/phpunit
 
       - run:
-         name: Start Chrome Driver
-         command: ./vendor/laravel/dusk/bin/chromedriver-linux
-         background: true
+          name: PHPUnit
+          command: vendor/bin/phpunit
 
-      - run:
-         name: Run Laravel Server
-         command: php artisan serve
-         background: true
-
-      - run:
-         name: Run Laravel Dusk Tests
-         command: php artisan dusk
+      # - run:
+      #    name: Start Chrome Driver
+      #    command: ./vendor/laravel/dusk/bin/chromedriver-linux
+      #    background: true
+      #
+      # - run:
+      #    name: Run Laravel Server
+      #    command: php artisan serve
+      #    background: true
+      #
+      # - run:
+      #    name: Run Laravel Dusk Tests
+      #    command: php artisan dusk
