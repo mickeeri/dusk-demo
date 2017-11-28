@@ -8,29 +8,27 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/php:7.1-browsers
-
-      - image: circleci/node:8.9.0-browsers
-
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/mysql:5.7
 
-
     environment:
       - APP_KEY: "base64:goQzQsFS/ayFxrSET6o9O/mNL1bblRt3BpMjOPHcQ68="
-
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
+      - run:
+         name: Download NodeJS v8
+         command: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
       # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "composer.json" }}
-          - v1-dependencies-{{ checksum "package.json" }}
 
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
@@ -41,6 +39,15 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: Install NodeJS Packages
+          command: npm install
 
       - save_cache:
           paths:
@@ -53,7 +60,6 @@ jobs:
       # - run: sudo apt-get install -y libsqlite3-dev
       - run: cp .env.testing .env
       # - run: composer install -n --ignore-platform-reqs
-      - run: npm install
       - run: npm run production
       - run: vendor/bin/phpunit
 
