@@ -16,6 +16,7 @@ install:
   - travis_retry composer install --no-interaction
 
 before_script:
-  - sudo apt-get install nginx
+  - composer global require cpriego/valet-linux
+  - valet install
 
 script:
