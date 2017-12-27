@@ -3,6 +3,7 @@ language: php
 dist: trusty
 
 php:
+  - 7.0
   - 7.1
 
 services:
@@ -15,7 +16,7 @@ install:
   - travis_retry composer install --no-interaction
 
 before_script:
-  - apt-get install nginx
+  - sudo apt-get install nginx
 
 script:
-  - vendor/bin/phpunit
+  - php artisan dusk
