@@ -15,7 +15,7 @@ before_install:
 install:
   - travis_retry composer install --no-interaction
   - composer global require cpriego/valet-linux
-  - ~/.composer/vendor/bin/valet install
+  - ~/.config/composer/vendor/bin/valet install
 
 before_script:
 
