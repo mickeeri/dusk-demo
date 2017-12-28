@@ -17,6 +17,6 @@ install:
 
 before_script:
   - composer global require cpriego/valet-linux
-  - valet install
+  - ~/.composer/vendor/bin/valet install
 
 script:
